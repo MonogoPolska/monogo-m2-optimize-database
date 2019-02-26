@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="Monogo" translate="label" sortOrder="9000">
+            <label>Monogo</label>
+            <resource>Monogo::modules</resource>
+        </tab>
+        <section id="monogo_optimizedatabase" translate="label" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Optimize database</label>
+            <tab>Monogo</tab>
+            <resource>Monogo::optimizedatabase</resource>
+            <group id="general" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Optimize database Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="min_frag_ratio" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimal fragmentation ratio</label>
+                    <validate>validate-digits</validate>
+                    <depends>
+                        <field id="monogo_optimizedatabase/general/enabled">1</field>
+                    </depends>
+                    <comment>Optimize tables for which fragmentation ratio is higher than this value. Default value is 1</comment>
+                </field>
+                <field id="use_cron" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use Magento Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="monogo_optimizedatabase/general/enabled">1</field>
+                    </depends>
+                    <comment>You can disable Magento cron and run Optimization from shell</comment>
+                </field>
+                <field id="cron_expr" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cron schedule</label>
+                    <depends>
+                        <field id="monogo_optimizedatabase/general/enabled">1</field>
+                        <field id="monogo_optimizedatabase/general/use_cron">1</field>
+                    </depends>
+                    <comment>Use Crontab Format (Eg. "05 1 * * *" every day at 01:05)</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

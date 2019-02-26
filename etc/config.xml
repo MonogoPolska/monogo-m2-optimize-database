@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <monogo_optimizedatabase>
+            <general>
+                <enabled>1</enabled>
+                <min_frag_ratio>1</min_frag_ratio>
+                <use_cron>0</use_cron>
+                <cron_expr>5</cron_expr>
+                <cron_expr>05 1 * * *</cron_expr>
+            </general>
+        </monogo_optimizedatabase>
+    </default>
+</config>
