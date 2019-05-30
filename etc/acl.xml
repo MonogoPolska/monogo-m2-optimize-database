@@ -4,9 +4,7 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Monogo::modules" title="Monogo Modules" translate="title" sortOrder="200">
-                    <resource id="Monogo::optimizedatabase" title="Optimize database settings" translate="title" sortOrder="9000"/>
-                </resource>
+                <resource id="Monogo_OptimizeDatabase::config" title="Optimize database settings" translate="title" sortOrder="9000"/>
             </resource>
         </resources>
     </acl>
