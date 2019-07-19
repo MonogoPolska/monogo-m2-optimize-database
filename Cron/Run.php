@@ -1,6 +1,6 @@
 <?php
 
-namespace Monogo\ConfirmOrder\Cron;
+namespace Monogo\OptimizeDatabase\Cron;
 
 use Monogo\OptimizeDatabase\Helper\Data;
 
@@ -37,8 +37,6 @@ class Run
     {
         if ($this->helper->isEnabled() && $this->helper->useCron()) {
             $this->helper->optimizeTables(false);
-        } else {
-            print_r('Module/cron is disabled in Stores->Configuration->Monogo->Optimize database' . PHP_EOL);
         }
     }
 
