@@ -34,10 +34,6 @@ class Run extends Command
         \Magento\Framework\App\State $appState,
         Data $helper
     ) {
-        try {
-            $appState->setAreaCode(\Magento\Framework\App\Area::AREA_GLOBAL);
-        } catch (\Exception $e) {
-        }
         $this->helper = $helper;
         parent::__construct();
     }
@@ -75,6 +71,10 @@ class Run extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        try {
+            $this->appState->setAreaCode(\Magento\Framework\App\Area::AREA_GLOBAL);
+        } catch (\Exception $e) {
+        }
         if ($mode = $input->getOption(self::MODE)) {
             switch ($mode) {
             case 'print':
