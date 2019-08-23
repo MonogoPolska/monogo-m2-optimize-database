@@ -22,6 +22,9 @@ class Run extends Command
     const MODE = 'mode';
 
     protected $helper;
+
+    protected $appState;
+
     /**
      * FrontendPing constructor.
      *
@@ -34,6 +37,7 @@ class Run extends Command
         \Magento\Framework\App\State $appState,
         Data $helper
     ) {
+        $this->appState = $appState;
         $this->helper = $helper;
         parent::__construct();
     }
