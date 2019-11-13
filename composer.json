@@ -10,7 +10,7 @@
     },
     "homepage": "https://github.com/MonogoPolska/m2-optimize-database",
     "type": "magento2-module",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "license": "MIT",
     "authors": [
         {
