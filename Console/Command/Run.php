@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monogo\OptimizeDatabase\Console\Command;
 
 use Monogo\OptimizeDatabase\Helper\Data;
@@ -9,7 +11,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * PHP version 7.0
  * Class Run
  *
  * @category Monogo
@@ -21,14 +22,20 @@ class Run extends Command
 {
     const MODE = 'mode';
 
+    /**
+     * @var Data
+     */
     protected $helper;
 
+    /**
+     * @var \Magento\Framework\App\State
+     */
     protected $appState;
 
     /**
      * FrontendPing constructor.
      *
-     * @param \Magento\Framework\App\State      $appState State
+     * @param \Magento\Framework\App\State         $appState State
      * @param \Monogo\OptimizeDatabase\Helper\Data $helper   Helper
      *
      * @throws \Exception
@@ -47,7 +54,7 @@ class Run extends Command
      *
      * @return void
      */
-    protected function configure()
+    protected function configure() : void
     {
         $options = [
             new InputOption(
@@ -73,7 +80,7 @@ class Run extends Command
      * @return void
      * @throws \Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         try {
             $this->appState->setAreaCode(\Magento\Framework\App\Area::AREA_GLOBAL);

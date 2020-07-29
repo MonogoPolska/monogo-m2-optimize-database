@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monogo\OptimizeDatabase\Cron;
 
 use Monogo\OptimizeDatabase\Helper\Data;
 
 /**
- * PHP version 7.0
  * Class Run
  *
  * @category Monogo
@@ -15,6 +16,9 @@ use Monogo\OptimizeDatabase\Helper\Data;
  */
 class Run
 {
+    /**
+     * @var Data
+     */
     protected $helper;
 
     /**
@@ -33,7 +37,7 @@ class Run
      *
      * @return void
      */
-    public function optimizeTables()
+    public function optimizeTables() : void
     {
         if ($this->helper->isEnabled() && $this->helper->useCron()) {
             $this->helper->optimizeTables(false);
@@ -46,7 +50,7 @@ class Run
      * @return void
      * @throws \Exception
      */
-    public function execute()
+    public function execute() : void
     {
         $this->optimizeTables();
     }

@@ -2,7 +2,7 @@
     "name": "monogo/optimizedatabase",
     "description": "Magento 2 module for optimization of database fragmentation.",
     "require": {
-        "php": "~7.2.0|~7.3.0",
+        "php": "~7.3.0||~7.4.0",
         "magento/magento-composer-installer": "*",
         "magento/framework": "*",
         "symfony/console": "*",
@@ -10,7 +10,7 @@
     },
     "homepage": "https://github.com/MonogoPolska/m2-optimize-database",
     "type": "magento2-module",
-    "version": "1.0.4",
+    "version": "2.0.1",
     "license": "MIT",
     "authors": [
         {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Monogo\OptimizeDatabase\Helper;
 
 use LucidFrame\Console\ConsoleTable;
@@ -12,7 +14,6 @@ use Magento\Store\Model\ScopeInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
- * PHP version 7.0
  * Class Data
  *
  * @category Monogo
@@ -28,14 +29,24 @@ class Data extends AbstractHelper
 
     const CONFIG_PATH_MIN_FRAG_RATIO = 'monogo_optimizedatabase/general/min_frag_ratio';
 
+    /**
+     * @var StoreManagerInterface
+     */
     protected $storeManager;
 
-    protected $context;
-
+    /**
+     * @var ResourceConnection
+     */
     protected $resourceConnection;
 
+    /**
+     * @var ConsoleTable
+     */
     protected $consoleTable;
 
+    /**
+     * @var DeploymentConfig
+     */
     protected $deploymentConfig;
 
     /**
@@ -67,9 +78,9 @@ class Data extends AbstractHelper
      * @param string $config_path Path
      * @param int    $storeId     StoreId
      *
-     * @return mixed
+     * @return string
      */
-    public function getConfig($config_path, $storeId = null)
+    public function getConfig(string $config_path, int $storeId = null): string
     {
         return $this->scopeConfig->getValue(
             $config_path,
@@ -83,9 +94,9 @@ class Data extends AbstractHelper
      *
      * @return int
      */
-    public function isEnabled()
+    public function isEnabled(): int
     {
-        return $this->getConfig(self::CONFIG_PATH_ENABLED);
+        return (int)$this->getConfig(self::CONFIG_PATH_ENABLED);
     }
 
     /**
@@ -93,9 +104,9 @@ class Data extends AbstractHelper
      *
      * @return int
      */
-    public function useCron()
+    public function useCron(): int
     {
-        return $this->getConfig(self::CONFIG_PATH_USE_CRON);
+        return (int)$this->getConfig(self::CONFIG_PATH_USE_CRON);
     }
 
     /**
@@ -103,9 +114,9 @@ class Data extends AbstractHelper
      *
      * @return int
      */
-    public function getMinFragRation()
+    public function getMinFragRation(): int
     {
-        $min_frag_ratio = $this->getConfig(self::CONFIG_PATH_MIN_FRAG_RATIO);
+        $min_frag_ratio = (int)$this->getConfig(self::CONFIG_PATH_MIN_FRAG_RATIO);
         if (empty($min_frag_ratio)) {
             $min_frag_ratio = 1;
         }
@@ -117,7 +128,7 @@ class Data extends AbstractHelper
      *
      * @return array
      */
-    public function getTables()
+    public function getTables(): array
     {
         $readConnection = $this->resourceConnection->getConnection();
         $db_name = $this->deploymentConfig
@@ -126,7 +137,7 @@ class Data extends AbstractHelper
                 . '/' . ConfigOptionsListConstants::KEY_NAME
             );
 
-        $query = 'select  ENGINE, TABLE_SCHEMA,TABLE_NAME,Round( DATA_LENGTH/1024/1024) as data_length , round(INDEX_LENGTH/1024/1024) as index_length, round(DATA_FREE/ 1024/1024) as data_free, (data_free/(index_length+data_length)) as frag_ratio from information_schema.tables  where TABLE_SCHEMA ="' . $db_name . '" AND DATA_FREE > 0  order by frag_ratio desc;';
+        $query = 'select ENGINE, TABLE_SCHEMA,TABLE_NAME,Round( DATA_LENGTH/1024/1024) as data_length , round(INDEX_LENGTH/1024/1024) as index_length, round(DATA_FREE/ 1024/1024) as data_free, (data_free/(index_length+data_length)) as frag_ratio from information_schema.tables where TABLE_SCHEMA ="' . $db_name . '" AND DATA_FREE > 0 order by frag_ratio desc;';
         return $readConnection->fetchAll($query);
     }
 
@@ -135,7 +146,7 @@ class Data extends AbstractHelper
      *
      * @return void
      */
-    public function printTables()
+    public function printTables(): void
     {
         $tbl = $this->consoleTable;
         $tbl->setHeaders(
@@ -162,13 +173,13 @@ class Data extends AbstractHelper
      *
      * @return void
      */
-    public function optimizeTables($console = false)
+    public function optimizeTables(bool $console = false): void
     {
         if (!$this->isEnabled()) {
             if ($console) {
                 print_r('Module is disabled in Stores->Configuration->Monogo->Optimize database' . PHP_EOL);
             }
-            return null;
+            return;
         }
 
         $writeConnection = $this->resourceConnection->getConnection();
